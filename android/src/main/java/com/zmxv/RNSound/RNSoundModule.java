@@ -26,7 +26,7 @@ import java.io.IOException;
 import android.util.Log;
 
 public class RNSoundModule extends ReactContextBaseJavaModule implements AudioManager.OnAudioFocusChangeListener {
-  Map<Double, MediaPlayer> playerPool = new HashMap<>();
+  final static Map<Double, MediaPlayer> playerPool = new HashMap<>();
   ReactApplicationContext context;
   final static Object NULL = null;
   String category;
@@ -61,6 +61,8 @@ public class RNSoundModule extends ReactContextBaseJavaModule implements AudioMa
       e.putString("message", "resource not found");
       return;
     }
+
+    release(key);
     this.playerPool.put(key, player);
 
     final RNSoundModule module = this;
