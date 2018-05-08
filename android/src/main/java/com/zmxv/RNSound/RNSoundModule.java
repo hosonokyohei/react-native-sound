@@ -61,10 +61,8 @@ public class RNSoundModule extends ReactContextBaseJavaModule implements AudioMa
       e.putString("message", "resource not found");
       return;
     }
-    
-    if (this.playerPool.get(key) != null) {
-      release(key);
-    }
+
+    release(key);
     this.playerPool.put(key, player);
 
     final RNSoundModule module = this;
@@ -303,6 +301,7 @@ public class RNSoundModule extends ReactContextBaseJavaModule implements AudioMa
 
   @ReactMethod
   public void release(final Double key) {
+    Log.d(RNSoundModule.class.getSimpleName(), "release(): " + key);
     MediaPlayer player = this.playerPool.get(key);
     if (player != null) {
       player.release();
